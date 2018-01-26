@@ -1,5 +1,6 @@
 package main
 
 func main() {
-  println("123")
+	var x = "123"
+	println(x)
 }
