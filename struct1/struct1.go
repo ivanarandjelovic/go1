@@ -4,6 +4,8 @@
 // just playing arround
 package struct1
 
+import "fmt"
+
 // Str1 is the structure we play with in this package
 // second line
 // third line (of comment for Str1)
@@ -18,4 +20,9 @@ func NewStr1(id int, name string) *Str1 {
 	str.id = id
 	str.name = name
 	return str
+}
+
+// SayHello simply greets the supplied name
+func (str *Str1) SayHello(friend string) {
+	fmt.Println("Hello", friend, "from", str.name)
 }

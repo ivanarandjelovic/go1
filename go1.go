@@ -43,5 +43,7 @@ func goruts() {
 func structs() {
 	s := struct1.NewStr1(1, "mile")
 
+	s.SayHello("Ivan")
+
 	fmt.Println("Structure s is: ", s)
 }
