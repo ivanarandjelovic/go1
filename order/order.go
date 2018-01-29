@@ -6,18 +6,29 @@ import (
 
 // Order represents a trading order
 type Order interface {
+	getAmount() float64
+	getDebitingAccount() account.Account
+	getCreditingAccount() account.Account
 }
 
-type order struct {
-	Amount           float64
-	DebitingAccount  account.Account
-	CreditingAccount account.Account
+type orderType struct {
+	amount           float64
+	debitingAccount  account.Account
+	creditingAccount account.Account
 }
 
-func createOrder(amount float64, debitingAccount account.Account, creditingAccount account.Account) *order {
-	order := new(order)
-	order.Amount = amount
-	order.DebitingAccount = debitingAccount
-	order.CreditingAccount = creditingAccount
-	return order
+func (order *orderType) getAmount() float64 {
+	return order.amount
+}
+
+func (order *orderType) getDebitingAccount() account.Account {
+	return order.debitingAccount
+}
+
+func (order *orderType) getCreditingAccount() account.Account {
+	return order.creditingAccount
+}
+
+func createOrder(amount float64, debitingAccount account.Account, creditingAccount account.Account) Order {
+	return &orderType{amount: amount, debitingAccount: debitingAccount, creditingAccount: creditingAccount}
 }

@@ -17,13 +17,13 @@ var (
 
 func TestOrderConstructorOk(t *testing.T) {
 	order := createOrder(orderAmount, debitingAccount, creditingAccount)
-	if order.Amount != orderAmount {
+	if order.getAmount() != orderAmount {
 		t.Error("Order Amount incorrect")
 	}
-	if order.CreditingAccount != creditingAccount {
+	if order.getCreditingAccount() != creditingAccount {
 		t.Error("Order CreditingAccount incorrect")
 	}
-	if order.DebitingAccount != debitingAccount {
+	if order.getDebitingAccount() != debitingAccount {
 		t.Error("Order DebitingAccount incorrect")
 	}
 }
