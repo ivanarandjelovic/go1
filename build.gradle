@@ -1,0 +1,7 @@
+plugins {
+    id 'com.github.blindpirate.gogradle' version '0.8.1'
+}
+
+golang {
+    packagePath = 'github.com/ivanarandjelovic/go1'
+}
