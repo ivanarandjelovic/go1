@@ -6,35 +6,25 @@ import (
 	"github.com/ivanarandjelovic/go1/account"
 )
 
-// Order represents a trading order
-type Order interface {
-	getAmount() float64
-	getDebitingAccount() account.Account
-	getCreditingAccount() account.Account
+// Order is a structure representing single trading order
+type Order struct {
+	// direction 0 - buy, 1 - sell
+	direction       int
+	amount          float64
+	securityAccount account.Account
+	moneyAccount    account.Account
 }
 
-type orderType struct {
-	amount           float64
-	debitingAccount  account.Account
-	creditingAccount account.Account
-}
-
-func (order *orderType) getAmount() float64 {
-	return order.amount
-}
-
-func (order *orderType) getDebitingAccount() account.Account {
-	return order.debitingAccount
-}
-
-func (order *orderType) getCreditingAccount() account.Account {
-	return order.creditingAccount
-}
-
-func createOrder(amount float64, debitingAccount account.Account, creditingAccount account.Account) (Order, error) {
-	if debitingAccount.Currency == creditingAccount.Currency {
-		return nil, errors.New("creditiong and debiting account cannot have same currency")
+func New(direction int, amount float64, securityAccount account.Account, moneyAccount account.Account) (*Order, error) {
+	if direction != 0 && direction != 1 {
+		return nil, errors.New("Invalid direction, allowed values: 0 -buy, 1 - sell")
+	}
+	if direction == 1 && amount > securityAccount.Balance {
+		return nil, errors.New("Order amount over the balance")
+	}
+	if securityAccount.Currency == moneyAccount.Currency {
+		return nil, errors.New("security and money account cannot have same currency")
 	} else {
-		return &orderType{amount: amount, debitingAccount: debitingAccount, creditingAccount: creditingAccount}, nil
+		return &Order{amount: amount, securityAccount: securityAccount, moneyAccount: moneyAccount}, nil
 	}
 }
