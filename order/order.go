@@ -1,6 +1,8 @@
 package order
 
 import (
+	"errors"
+
 	"github.com/ivanarandjelovic/go1/account"
 )
 
@@ -29,6 +31,10 @@ func (order *orderType) getCreditingAccount() account.Account {
 	return order.creditingAccount
 }
 
-func createOrder(amount float64, debitingAccount account.Account, creditingAccount account.Account) Order {
-	return &orderType{amount: amount, debitingAccount: debitingAccount, creditingAccount: creditingAccount}
+func createOrder(amount float64, debitingAccount account.Account, creditingAccount account.Account) (Order, error) {
+	if debitingAccount.Currency == creditingAccount.Currency {
+		return nil, errors.New("creditiong and debiting account cannot have same currency")
+	} else {
+		return &orderType{amount: amount, debitingAccount: debitingAccount, creditingAccount: creditingAccount}, nil
+	}
 }
