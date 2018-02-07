@@ -8,17 +8,25 @@ import (
 
 	"github.com/emirpasic/gods/trees/binaryheap"
 	"github.com/emirpasic/gods/utils"
+
+	"github.com/ivanarandjelovic/go1/order"
 )
+
+func orderComparator(a, b interface{}) int {
+	return utils.Float64Comparator(a.(*order.Order).Amount, b.(*order.Order).Amount)
+}
+
+func inverseorderComparator(a, b interface{}) int {
+	return -orderComparator(a, b)
+}
 
 func New(currency string) (*traderType, error) {
 	if currency == "" {
 		return nil, errors.New("Currency must not be empty or nil")
 	}
-	inverseFloat64Comparator := func(a, b interface{}) int {
-		return -utils.Float64Comparator(a, b)
-	}
-	buyOrders := binaryheap.NewWith(inverseFloat64Comparator)
-	sellOrders := binaryheap.NewWith(utils.Float64Comparator)
+
+	buyOrders := binaryheap.NewWith(inverseorderComparator)
+	sellOrders := binaryheap.NewWith(orderComparator)
 	return &traderType{Currency: currency, BuyOrders: buyOrders, SellOrders: sellOrders}, nil
 }
 

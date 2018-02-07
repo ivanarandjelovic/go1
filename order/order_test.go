@@ -22,13 +22,13 @@ func TestOrderConstructorOk(t *testing.T) {
 	if err != nil {
 		t.Error("Order creation failed with: " + err.Error())
 	}
-	if order.amount != orderAmount {
+	if order.Amount != orderAmount {
 		t.Error("Order Amount incorrect")
 	}
-	if order.securityAccount != securityAccountBTC {
+	if order.SecurityAccount != securityAccountBTC {
 		t.Error("Order moneyAccount incorrect")
 	}
-	if order.moneyAccount != moneyAccountUSD {
+	if order.MoneyAccount != moneyAccountUSD {
 		t.Error("Order DebitingAccount incorrect")
 	}
 }

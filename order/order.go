@@ -9,10 +9,10 @@ import (
 // Order is a structure representing single trading order
 type Order struct {
 	// direction 0 - buy, 1 - sell
-	direction       int
-	amount          float64
-	securityAccount account.Account
-	moneyAccount    account.Account
+	Direction       int
+	Amount          float64
+	SecurityAccount account.Account
+	MoneyAccount    account.Account
 }
 
 func New(direction int, amount float64, securityAccount account.Account, moneyAccount account.Account) (*Order, error) {
@@ -25,6 +25,6 @@ func New(direction int, amount float64, securityAccount account.Account, moneyAc
 	if securityAccount.Currency == moneyAccount.Currency {
 		return nil, errors.New("security and money account cannot have same currency")
 	} else {
-		return &Order{amount: amount, securityAccount: securityAccount, moneyAccount: moneyAccount}, nil
+		return &Order{Amount: amount, SecurityAccount: securityAccount, MoneyAccount: moneyAccount}, nil
 	}
 }
