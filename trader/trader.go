@@ -12,10 +12,12 @@ import (
 	"github.com/ivanarandjelovic/go1/order"
 )
 
+// orderComparator compares order by amount, lower ammount is first
 func orderComparator(a, b interface{}) int {
 	return utils.Float64Comparator(a.(*order.Order).Amount, b.(*order.Order).Amount)
 }
 
+// inverseorderComparator compares order by amount, higher ammount is first
 func inverseorderComparator(a, b interface{}) int {
 	return -orderComparator(a, b)
 }
